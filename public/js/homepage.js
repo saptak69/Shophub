@@ -28,7 +28,12 @@ setInterval(nextSlide, 5000);
 async function loadFeaturedProducts() {
   try {
     const response = await fetch(`${API_URL}/products`);
-    const products = await response.json();
+    if (!response.ok) {
+      throw new Error(`Failed to fetch products (${response.status})`);
+    }
+
+    const payload = await response.json();
+    const products = Array.isArray(payload) ? payload : [];
     
     // Get top 6 products
     const featured = products.slice(0, 6);
@@ -51,7 +56,7 @@ function displayFeaturedProducts(products) {
         <div class="product-category">${product.category}</div>
         <h3 class="product-name">${product.name}</h3>
         <div class="product-price">₹${product.price.toLocaleString('en-IN')}</div>
-        <button class="btn btn-primary btn-small" onclick="addToCartFromHome('${product.id}', '${product.name}', ${product.price})">
+        <button class="btn btn-primary btn-small" onclick="addToCartFromHome('${product.id || product._id}', '${product.name}', ${product.price})">
           Add to Cart
         </button>
       </div>

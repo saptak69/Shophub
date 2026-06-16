@@ -80,7 +80,7 @@ npm install
 Edit the `.env` file:
 
 ```env
-MONGODB_URI=mongodb://localhost:27017/ecommerce
+MONGO_URI=mongodb://localhost:27017/ecommerce
 JWT_SECRET=your_secret_key_change_this_in_production
 PORT=5000
 NODE_ENV=development
@@ -88,7 +88,7 @@ NODE_ENV=development
 
 **For MongoDB Cloud (Atlas):**
 ```env
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/ecommerce
+MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/ecommerce
 ```
 
 ### 4. Start the Server

@@ -37,7 +37,7 @@ sudo service mongod start
 4. Get connection string
 5. Update `.env` file:
 ```env
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/ecommerce
+MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/ecommerce
 ```
 
 ### Step 2: Navigate to Project
@@ -147,7 +147,7 @@ const User = require('./models/User');
 
 async function createAdmin() {
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
+    await mongoose.connect(process.env.MONGO_URI);
     
     const hashedPassword = await bcrypt.hash('admin123', 10);
     const admin = await User.create({
@@ -188,7 +188,7 @@ node create-admin.js
 ### Environment Variables (.env)
 ```env
 # MongoDB Connection
-MONGODB_URI=mongodb://localhost:27017/ecommerce
+MONGO_URI=mongodb://localhost:27017/ecommerce
 
 # JWT Secret (CHANGE IN PRODUCTION!)
 JWT_SECRET=your_secret_key_change_this_in_production

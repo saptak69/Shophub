@@ -9,4 +9,13 @@ const productSchema = new mongoose.Schema({
   image: { type: String, default: 'https://via.placeholder.com/300' }
 }, { timestamps: true });
 
+productSchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform: (_, ret) => {
+    ret.id = ret._id.toString();
+    return ret;
+  }
+});
+
 module.exports = mongoose.model('Product', productSchema);

@@ -4,7 +4,12 @@ let allProducts = [];
 async function loadProducts() {
   try {
     const response = await fetch(`${API_URL}/products`);
-    allProducts = await response.json();
+    if (!response.ok) {
+      throw new Error(`Failed to fetch products (${response.status})`);
+    }
+
+    const payload = await response.json();
+    allProducts = Array.isArray(payload) ? payload : [];
     displayProducts(allProducts);
   } catch (error) {
     console.error('Error loading products:', error);
@@ -29,7 +34,7 @@ function displayProducts(products) {
         <div class="product-price">₹${Number(product.price).toLocaleString('en-IN')}</div>
         <div class="product-stock">Available Units: ${product.stock}</div>
         <div class="product-actions">
-          <button class="btn btn-primary" style="width: 100%;" onclick="addToCart('${product.id}', '${product.name}', ${product.price}, '${product.image}')">
+          <button class="btn btn-primary" style="width: 100%;" onclick="addToCart('${product.id || product._id}', '${product.name}', ${product.price}, '${product.image}')">
             Add to Bag
           </button>
         </div>

@@ -26,7 +26,7 @@ sudo service mongod start
 1. Go to https://www.mongodb.com/cloud/atlas
 2. Create free account
 3. Copy connection string
-4. Update `MONGODB_URI` in `.env`
+4. Update `MONGO_URI` in `.env`
 
 ---
 
@@ -166,10 +166,10 @@ Create `.env` file (already done):
 
 ```env
 # MongoDB Connection
-MONGODB_URI=mongodb://localhost:27017/ecommerce
+MONGO_URI=mongodb://localhost:27017/ecommerce
 
 # Or for MongoDB Atlas:
-# MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/ecommerce
+# MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/ecommerce
 
 # JWT Secret (change in production!)
 JWT_SECRET=your_secret_key_change_this_in_production
