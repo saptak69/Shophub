@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - ShopHub</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-brand">🛒 ShopHub</div>
+      <ul class="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="cart.html">Cart <span class="cart-count">0</span></a></li>
+        <li id="profile-menu">
+          <a href="profile.html" class="active">Profile</a>
+          <a href="#" onclick="logout()">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="profile-section">
+    <div class="container">
+      <h1>My Profile</h1>
+      
+      <div class="profile-content">
+        <div class="profile-info">
+          <h2>Account Information</h2>
+          <div class="info-row">
+            <span class="label">Name:</span>
+            <span id="userName">-</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Email:</span>
+            <span id="userEmail">-</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Role:</span>
+            <span id="userRole">-</span>
+          </div>
+        </div>
+
+        <div class="orders-history">
+          <h2>Order History</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="ordersTableBody">
+              <!-- Orders will be loaded here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/auth.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html>

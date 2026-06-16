@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In | ShopHub</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-brand">ShopHub</a>
+      <ul class="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="cart.html">Cart <span class="cart-count">0</span></a></li>
+        <li id="auth-menu"><a href="login.html" class="active">Login</a></li>
+        <li id="admin-menu" style="display: none;"><a href="admin.html">Admin</a></li>
+        <li id="profile-menu" style="display: none;">
+          <a href="profile.html">Profile</a>
+          <a href="#" onclick="logout()" style="margin-left: 1rem;">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <section class="auth-section">
+      <div class="auth-container">
+        <div class="auth-box">
+          <h1>Welcome Back</h1>
+          <form id="loginForm">
+            <input type="email" id="email" placeholder="Email address" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In</button>
+          </form>
+          <p>Don't have an account? <a href="register.html">Create one</a></p>
+          <div id="loginError" class="error-message" style="display: none;"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/auth.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>
