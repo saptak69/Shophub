@@ -10,8 +10,21 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' 
+    ? process.env.FRONTEND_URL || '*'
+    : '*',
+  credentials: true
+}));
 app.use(express.static('public'));
+
+// Security headers
+app.use((req, res, next) => {
+  res.header('X-Content-Type-Options', 'nosniff');
+  res.header('X-Frame-Options', 'DENY');
+  res.header('X-XSS-Protection', '1; mode=block');
+  next();
+});
 
 // File-based storage
 const dataDir = path.join(__dirname, 'data');
@@ -27,6 +40,7 @@ const ordersFile = path.join(dataDir, 'orders.json');
 if (!fs.existsSync(usersFile)) fs.writeFileSync(usersFile, JSON.stringify([]));
 if (!fs.existsSync(productsFile)) fs.writeFileSync(productsFile, JSON.stringify([]));
 if (!fs.existsSync(ordersFile)) fs.writeFileSync(ordersFile, JSON.stringify([]));
+
 
 // Helper functions
 const readFile = (file) => JSON.parse(fs.readFileSync(file, 'utf8'));

@@ -1,6 +1,16 @@
 // Global state
 let currentUser = null;
-const API_URL = 'http://localhost:5000/api';
+
+// Determine API URL based on environment
+function getAPIURL() {
+  if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
+    return 'http://localhost:5000/api';
+  }
+  // For production, use relative path so it works on any domain
+  return '/api';
+}
+
+const API_URL = getAPIURL();
 
 // Check if user is logged in
 function checkAuth() {
