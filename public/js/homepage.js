@@ -52,6 +52,7 @@ function displayFeaturedProducts(products) {
       <div class="product-info">
         <div class="product-category">${product.category}</div>
         <h3 class="product-name">${product.name}</h3>
+        <p class="product-description">${product.description}</p>
         <div class="product-price">Rs ${Number(product.price).toLocaleString('en-IN')}</div>
         <button class="btn btn-primary btn-small" onclick="addToCartFromHome('${product.id || product._id}', '${product.name}', ${product.price}, '${product.image}')">
           Add to cart

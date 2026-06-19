@@ -7,22 +7,48 @@ require('dotenv').config();
 
 const app = express();
 const mongoUri = process.env.MONGO_URI || process.env.MONGODB_URI;
+const frontendURL = process.env.FRONTEND_URL || '';
 
-// Models & Middleware
 const User = require('./models/User');
 const Product = require('./models/Product');
 const Order = require('./models/Order');
 const { authMiddleware, adminMiddleware } = require('./middleware/auth');
+const sampleProducts = require('./data/sampleProducts');
 
-// Middleware Setup
+function normalizeEmail(email = '') {
+  return email.trim().toLowerCase();
+}
+
+function isValidEmail(email = '') {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function buildCORSOptions() {
+  const allowedOrigins = frontendURL
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+
+  return {
+    origin(origin, callback) {
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      if (allowedOrigins.length === 0 || allowedOrigins.includes('*') || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error('Origin not allowed by CORS'));
+    },
+    credentials: false
+  };
+}
+
 app.use(express.json());
-app.use(cors({
-  origin: process.env.NODE_ENV === 'production' ? process.env.FRONTEND_URL || '*' : '*',
-  credentials: true
-}));
+app.use(cors(buildCORSOptions()));
 app.use(express.static('public'));
 
-// Security headers
 app.use((req, res, next) => {
   res.header('X-Content-Type-Options', 'nosniff');
   res.header('X-Frame-Options', 'DENY');
@@ -30,26 +56,38 @@ app.use((req, res, next) => {
   next();
 });
 
-// Environment Validation
 function validateEnv() {
   const missingEnvVars = [];
   if (!mongoUri) missingEnvVars.push('MONGO_URI or MONGODB_URI');
   if (!process.env.JWT_SECRET) missingEnvVars.push('JWT_SECRET');
-  
+
   if (missingEnvVars.length > 0) {
     throw new Error(`Missing required environment variables: ${missingEnvVars.join(', ')}`);
   }
 }
 
-// Database Connection
 async function connectToDatabase() {
   await mongoose.connect(mongoUri, {
     serverSelectionTimeoutMS: 10000
   });
+
   console.log('Connected to MongoDB Atlas');
+  await syncCatalogProducts();
 }
 
-// Health Check
+async function syncCatalogProducts() {
+  const operations = sampleProducts.map((product) => ({
+    updateOne: {
+      filter: { name: product.name },
+      update: { $set: product },
+      upsert: true
+    }
+  }));
+
+  await Product.bulkWrite(operations);
+  console.log(`Synced ${sampleProducts.length} catalog products`);
+}
+
 app.get('/api/health', async (req, res) => {
   try {
     const productCount = mongoose.connection.readyState === 1 ? await Product.countDocuments() : null;
@@ -64,17 +102,27 @@ app.get('/api/health', async (req, res) => {
   }
 });
 
-// ============== AUTH ROUTES ==============
 app.post('/api/auth/register', async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const name = req.body.name?.trim();
+    const email = normalizeEmail(req.body.email);
+    const password = req.body.password?.trim();
+
     if (!name || !email || !password) {
       return res.status(400).json({ success: false, message: 'All fields required' });
     }
 
+    if (!isValidEmail(email)) {
+      return res.status(400).json({ success: false, message: 'Please enter a valid email address' });
+    }
+
+    if (password.length < 6) {
+      return res.status(400).json({ success: false, message: 'Password must be at least 6 characters' });
+    }
+
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ success: false, message: 'Email already registered' });
+      return res.status(409).json({ success: false, message: 'Email already registered' });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -94,13 +142,24 @@ app.post('/api/auth/register', async (req, res) => {
       user: { id: user._id, name: user.name, email: user.email, role: user.role }
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Server error', error: error.message });
+    if (error.code === 11000) {
+      return res.status(409).json({ success: false, message: 'Email already registered' });
+    }
+
+    console.error('Register error:', error);
+    res.status(500).json({ success: false, message: 'Server error while registering user' });
   }
 });
 
 app.post('/api/auth/login', async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const email = normalizeEmail(req.body.email);
+    const password = req.body.password?.trim();
+
+    if (!email || !password) {
+      return res.status(400).json({ success: false, message: 'Email and password are required' });
+    }
+
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({ success: false, message: 'Invalid email or password' });
@@ -124,14 +183,13 @@ app.post('/api/auth/login', async (req, res) => {
       user: { id: user._id, name: user.name, email: user.email, role: user.role }
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Server error', error: error.message });
+    console.error('Login error:', error);
+    res.status(500).json({ success: false, message: 'Server error while logging in' });
   }
 });
 
-// ============== PRODUCT ROUTES (Delegated) ==============
 app.use('/api/products', require('./routes/products'));
 
-// ============== ORDERS ROUTES ==============
 app.post('/api/orders', authMiddleware, async (req, res) => {
   try {
     const { items, shippingAddress, paymentMethod } = req.body;
@@ -144,8 +202,10 @@ app.post('/api/orders', authMiddleware, async (req, res) => {
 
     for (const item of items) {
       const product = await Product.findById(item.productId);
-      if (!product) return res.status(404).json({ message: 'Product not found' });
-      
+      if (!product) {
+        return res.status(404).json({ message: 'Product not found' });
+      }
+
       if (product.stock < item.quantity) {
         return res.status(400).json({ message: `Insufficient stock for ${product.name}` });
       }
@@ -207,7 +267,11 @@ app.put('/api/orders/:id', authMiddleware, adminMiddleware, async (req, res) => 
       { status: req.body.status },
       { new: true }
     );
-    if (!order) return res.status(404).json({ message: 'Order not found' });
+
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
     res.json({ success: true, message: 'Order updated', order });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
@@ -217,34 +281,24 @@ app.put('/api/orders/:id', authMiddleware, adminMiddleware, async (req, res) => 
 app.delete('/api/orders/:id', authMiddleware, adminMiddleware, async (req, res) => {
   try {
     const order = await Order.findByIdAndDelete(req.params.id);
-    if (!order) return res.status(404).json({ success: false, message: 'Order not found' });
+    if (!order) {
+      return res.status(404).json({ success: false, message: 'Order not found' });
+    }
+
     res.json({ success: true, message: 'Order deleted' });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Server error' });
   }
 });
 
-// ============== HARD RESET / SEED DATA ==============
 app.get('/api/seed', async (req, res) => {
   try {
-    const streetwearDrops = [
-      { name: "CYBER-TOKYO HEAVY TEE", description: "240 GSM heavyweight cotton. Drop shoulder fit. Features a high-density back print.", price: 1299, stock: 50, category: "Anime", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=600&auto=format&fit=crop" },
-      { name: "ARACHNID OVERSIZED WEAVE", description: "Boxy fit. Subtle web-like distressing across the hem and sleeves.", price: 1499, stock: 35, category: "Anime", image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=600&auto=format&fit=crop" },
-      { name: "MECHA-01 DROP HOODIE", description: "Pitch black, acid-washed french terry. Distorted mecha unit graphic.", price: 2499, stock: 25, category: "Anime", image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=600&auto=format&fit=crop" },
-      { name: "Y2K GLITCH-ART ZIP-UP", description: "Faded vintage black full-zip. Features brutalist typography down the sleeves.", price: 2199, stock: 30, category: "Graphic", image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=600&auto=format&fit=crop" },
-      { name: "DISTORTED REALITY KNIT", description: "Chunky, distressed mohair blend sweater. Woven static graphic.", price: 2999, stock: 15, category: "Graphic", image: "https://images.unsplash.com/photo-1578919039148-1b1d6d6c9e2f?q=80&w=600&auto=format&fit=crop" },
-      { name: "WEAPON-X COMPRESSION SHIRT", description: "Skin-tight tactical base layer. Aggressive contrast stitching.", price: 899, stock: 60, category: "Graphic", image: "https://images.unsplash.com/photo-1617391761001-35b80a2b85e0?q=80&w=600&auto=format&fit=crop" },
-      { name: "OLD-MONEY SUBVERTED POLO", description: "A classic silhouette utterly destroyed. Frayed collars and distressed hems.", price: 1899, stock: 40, category: "Limited", image: "https://images.unsplash.com/photo-1586363104862-3a5e222ee513?q=80&w=600&auto=format&fit=crop" },
-      { name: "MIDNIGHT TACTICAL CARGOS", description: "Parachute-style nylon cargos with articulated knees. Six pockets.", price: 2799, stock: 20, category: "Limited", image: "https://images.unsplash.com/photo-1622519407650-3df9883f76a5?q=80&w=600&auto=format&fit=crop" },
-      { name: "TITANIUM MESH RUNNERS", description: "Chunky, aggressive silhouette on a stacked EVA sole.", price: 4499, stock: 12, category: "Limited", image: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?q=80&w=600&auto=format&fit=crop" }
-    ];
-
     await Product.deleteMany({});
-    const created = await Product.insertMany(streetwearDrops);
+    const created = await Product.insertMany(sampleProducts);
 
     res.json({
       success: true,
-      message: 'THE CORPORATE DB HAS BEEN NUKED. STREETWEAR CATALOG SECURED.',
+      message: 'Catalog seeded successfully.',
       count: created.length
     });
   } catch (error) {
@@ -258,9 +312,9 @@ async function startServer() {
   try {
     validateEnv();
     await connectToDatabase();
-    app.listen(PORT, () => console.log(`[SYSTEM] Server running on port ${PORT}`));
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
   } catch (error) {
-    console.error('[ERROR] Failed to start server:', error.message);
+    console.error('Failed to start server:', error.message);
     process.exit(1);
   }
 }

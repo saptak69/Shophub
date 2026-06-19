@@ -12,6 +12,10 @@ function syncCategoryFilter(category) {
   }
 }
 
+function normalizeCategory(category) {
+  return (category || '').trim();
+}
+
 function updateURLCategory(category) {
   const url = new URL(window.location.href);
   if (category) {
@@ -31,7 +35,7 @@ async function loadProducts() {
 
     const payload = await response.json();
     allProducts = Array.isArray(payload) ? payload : [];
-    const initialCategory = getCategoryFromQuery();
+    const initialCategory = normalizeCategory(getCategoryFromQuery());
     syncCategoryFilter(initialCategory);
     filterProducts(initialCategory);
   } catch (error) {
@@ -41,9 +45,13 @@ async function loadProducts() {
 }
 
 function filterProducts(category) {
-  const filteredProducts = category ? allProducts.filter((product) => product.category === category) : allProducts;
+  const normalizedCategory = normalizeCategory(category);
+  const filteredProducts = normalizedCategory
+    ? allProducts.filter((product) => product.category === normalizedCategory)
+    : allProducts;
+
   displayProducts(filteredProducts);
-  updateURLCategory(category);
+  updateURLCategory(normalizedCategory);
 }
 
 function displayProducts(products) {
@@ -61,6 +69,7 @@ function displayProducts(products) {
       <div class="product-info">
         <div class="product-category">${product.category}</div>
         <div class="product-name">${product.name}</div>
+        <div class="product-description">${product.description}</div>
         <div class="product-price">Rs ${Number(product.price).toLocaleString('en-IN')}</div>
         <div style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">[STOCK: ${product.stock}]</div>
         <button class="btn btn-primary" onclick="addToCart('${product.id || product._id}', '${product.name}', ${product.price}, '${product.image}')">
@@ -84,15 +93,24 @@ function addToCart(productId, name, price, image) {
   localStorage.setItem('cart', JSON.stringify(cart));
   updateCartCount();
   
-  // A raw, simple alert to match the vibe
-  alert(`[+] ${name.toUpperCase()} ADDED TO BAG`);
+  // Trigger brutalist terminal-style toast notification
+  const notify = document.getElementById('toast-notification');
+  if (notify) {
+    notify.textContent = `[+] ${name.toUpperCase()} LOCKED IN CART`;
+    notify.classList.add('show');
+    setTimeout(() => {
+      notify.classList.remove('show');
+    }, 2500);
+  }
 }
 
-const categoryFilter = document.getElementById('categoryFilter');
-if (categoryFilter) {
-  categoryFilter.addEventListener('change', (event) => {
-    filterProducts(event.target.value);
-  });
-}
+document.addEventListener('DOMContentLoaded', () => {
+  const categoryFilter = document.getElementById('categoryFilter');
+  if (categoryFilter) {
+    categoryFilter.addEventListener('change', (event) => {
+      filterProducts(event.target.value);
+    });
+  }
 
-document.addEventListener('DOMContentLoaded', loadProducts);
+  loadProducts();
+});

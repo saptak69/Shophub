@@ -26,27 +26,27 @@ function displayCart() {
     subtotal += itemTotal;
 
     return `
-      <div style="display: flex; gap: 1.5rem; background: var(--bg-surface); border: 1px solid var(--border-color); padding: 1.5rem; margin-bottom: 1rem; transition: border 0.2s;">
-        <img src="${item.image}" alt="${item.name}" style="width: 120px; height: 120px; object-fit: cover; border: 1px solid var(--border-color); filter: contrast(1.1);">
+      <div class="cart-line-item">
+        <img src="${item.image}" alt="${item.name}" class="cart-line-image">
         
-        <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <div class="cart-line-content">
+          <div class="cart-line-header">
             <div>
-              <div style="font-family: var(--font-display); font-size: 1.8rem; text-transform: uppercase; line-height: 1; margin-bottom: 0.5rem;">${item.name}</div>
-              <div style="color: var(--accent); font-weight: bold; font-size: 1.2rem;">Rs ${Number(item.price).toLocaleString('en-IN')}</div>
+              <div class="cart-line-name">${item.name}</div>
+              <div class="cart-line-price">Rs ${Number(item.price).toLocaleString('en-IN')}</div>
             </div>
-            <div style="font-weight: bold; font-size: 1.2rem;">
+            <div class="cart-line-total">
               Rs ${Number(itemTotal).toLocaleString('en-IN')}
             </div>
           </div>
           
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 1rem;">
-            <div style="display: flex; align-items: center; border: 1px solid var(--border-color); background: #000;">
-              <button style="background: none; border: none; color: #fff; padding: 0.5rem 1rem; cursor: pointer; font-weight: bold;" onclick="updateQuantity(${index}, -1)">-</button>
-              <input type="number" value="${item.quantity}" readonly style="width: 50px; text-align: center; background: none; border: none; color: #fff; border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); padding: 0.5rem; font-family: var(--font-mono); font-weight: bold;">
-              <button style="background: none; border: none; color: #fff; padding: 0.5rem 1rem; cursor: pointer; font-weight: bold;" onclick="updateQuantity(${index}, 1)">+</button>
+          <div class="cart-line-footer">
+            <div class="cart-line-quantity">
+              <button class="cart-qty-btn" onclick="updateQuantity(${index}, -1)">-</button>
+              <input type="number" value="${item.quantity}" readonly class="cart-qty-input">
+              <button class="cart-qty-btn" onclick="updateQuantity(${index}, 1)">+</button>
             </div>
-            <button style="background: none; border: none; color: #ff3333; text-transform: uppercase; font-size: 0.9rem; font-weight: bold; cursor: pointer; letter-spacing: 1px;" onclick="removeFromCart(${index})">[ REMOVE ]</button>
+            <button class="cart-remove-btn" onclick="removeFromCart(${index})">[ REMOVE ]</button>
           </div>
         </div>
       </div>
@@ -75,6 +75,7 @@ function removeFromCart(index) {
   localStorage.setItem('cart', JSON.stringify(cart));
   updateCartCount();
   loadCart();
+  
 }
 
 document.addEventListener('DOMContentLoaded', loadCart);
