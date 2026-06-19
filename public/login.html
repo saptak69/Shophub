@@ -3,84 +3,122 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign In | ShopHub</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <title>TERMINAL ACCESS | SHOPHUB</title>
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .login-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80vh;
+      padding: 2rem;
+    }
+    .login-panel {
+      background: var(--bg-surface);
+      border: 2px solid var(--border-color);
+      padding: 4rem 3rem;
+      width: 100%;
+      max-width: 500px;
+      position: relative;
+      box-shadow: 10px 10px 0px #000;
+    }
+    .login-badge {
+      position: absolute;
+      top: -15px;
+      left: 2rem;
+      background: var(--accent);
+      color: #000;
+      padding: 0.3rem 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.85rem;
+      border: 2px solid #000;
+    }
+    .login-title {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      letter-spacing: 1px;
+    }
+    .login-subtitle {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 2.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .auth-link {
+      display: block;
+      margin-top: 2rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      text-align: center;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color var(--transition-base);
+    }
+    .auth-link:hover {
+      color: var(--accent);
+    }
+  </style>
 </head>
 <body>
+
+  <div class="marquee-container">
+    <div class="marquee-content">
+      SECURE TERMINAL • IDENTIFY YOURSELF • SECURE TERMINAL • IDENTIFY YOURSELF • SECURE TERMINAL • IDENTIFY YOURSELF • 
+    </div>
+  </div>
+
   <nav class="navbar">
     <div class="container">
       <a href="index.html" class="nav-brand">
-        <img src="assets/logo-mark.svg" alt="ShopHub logo" class="brand-mark">
-        <span class="brand-text">
-          <span class="brand-name">ShopHub</span>
-          <span class="brand-tag">Curated Commerce</span>
-        </span>
+        <img src="assets/logo-mark.svg" alt="ShopHub Logo" class="brand-logo" style="filter: invert(1) brightness(2);">
+        SHOPHUB
       </a>
       <ul class="nav-menu">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="products.html">Products</a></li>
+        <li><a href="index.html">Drops</a></li>
+        <li><a href="products.html">Shop</a></li>
         <li><a href="cart.html">Cart <span class="cart-count">0</span></a></li>
-        <li id="auth-menu"><a href="login.html" class="active">Login</a></li>
-        <li id="admin-menu" style="display: none;"><a href="admin.html">Admin</a></li>
-        <li id="profile-menu" style="display: none;">
-          <a href="profile.html">Profile</a>
-          <a href="#" onclick="logout()">Logout</a>
-        </li>
+        <li><a href="login.html" class="active">Login</a></li>
       </ul>
     </div>
   </nav>
 
-  <main class="page-shell">
-    <div class="container">
-      <section class="auth-layout" data-reveal>
-        <div class="auth-grid">
-          <div class="auth-hero">
-            <span class="eyebrow"><span class="eyebrow-dot"></span>Welcome back</span>
-            <h1>Sign in to continue your premium storefront journey.</h1>
-            <p>Pick up your cart, review orders, and move through checkout with a smoother account experience.</p>
-            <div class="feature-stack">
-              <div class="feature-pill">
-                <span class="trust-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3.8L18.2 6.2V11.8C18.2 15.88 15.58 19.57 12 20.7C8.42 19.57 5.8 15.88 5.8 11.8V6.2L12 3.8Z" stroke="currentColor" stroke-width="1.8"/><path d="M9.4 11.9L11.1 13.6L14.9 9.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
-                <div>
-                  <h3>Secure sessions</h3>
-                  <p>Protected sign-in flow with a calmer, cleaner presentation.</p>
-                </div>
-              </div>
-              <div class="feature-pill">
-                <span class="trust-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5.5 7.5H18.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 11H16.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M9.5 14.5H14.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.8"/></svg>
-                </span>
-                <div>
-                  <h3>Order visibility</h3>
-                  <p>Track recent activity and account details without friction.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="auth-box">
-            <div class="profile-badge">Sign in</div>
-            <h1>Access your account</h1>
-            <form id="loginForm">
-              <input type="email" id="email" placeholder="Email address" required>
-              <input type="password" id="password" placeholder="Password" required>
-              <button type="submit" class="btn btn-primary" style="width:100%;">Sign in</button>
-            </form>
-            <p>Don't have an account? <a href="register.html">Create one</a></p>
-            <div id="loginError" class="error-message" style="display:none;"></div>
-          </div>
+  <main class="login-wrapper">
+    <div class="login-panel">
+      <div class="login-badge">Restricted Access</div>
+      <h1 class="login-title">SYSTEM LOGIN</h1>
+      <p class="login-subtitle">Enter credentials to access your operative dashboard.</p>
+      
+      <form id="loginForm">
+        <div class="form-group">
+          <label class="brutalist-label">Secure Email</label>
+          <input type="email" id="email" class="brutalist-input" placeholder="operative@shophub.com" required>
         </div>
-      </section>
+        
+        <div class="form-group">
+          <label class="brutalist-label">Passphrase</label>
+          <input type="password" id="password" class="brutalist-input" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="margin-top: 1rem; font-size: 1.2rem; padding: 1.2rem; width: 100%;">AUTHORIZE [ EXECUTE ]</button>
+      </form>
+
+      <a href="register.html" class="auth-link">No access? [ Request Authorization ]</a>
+      
+      <div id="loginError" style="color: #ff3333; margin-top: 1rem; text-align: center; display: none; font-weight: bold; text-transform: uppercase; font-size: 0.85rem;"></div>
     </div>
   </main>
 
   <script src="js/auth.js"></script>
-  <script src="js/ui.js"></script>
   <script src="js/login.js"></script>
 </body>
 </html>
