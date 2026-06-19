@@ -3,138 +3,103 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ShopHub | Curated Essentials</title>
+  <title>SHOPHUB | WEAR YOUR CULTURE</title>
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
+  <div class="marquee-container">
+    <div class="marquee-content">
+      STAY RAW • NO CORPORATE BS • WEAR YOUR CULTURE • STAY RAW • NO CORPORATE BS • WEAR YOUR CULTURE • STAY RAW • NO CORPORATE BS • WEAR YOUR CULTURE • STAY RAW • NO CORPORATE BS • WEAR YOUR CULTURE •
+    </div>
+  </div>
+
   <nav class="navbar">
     <div class="container">
-      <a href="index.html" class="nav-brand">ShopHub</a>
+      <a href="index.html" class="nav-brand">SHOPHUB</a>
       <ul class="nav-menu">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="products.html">Products</a></li>
+        <li><a href="index.html" class="active">Drops</a></li>
+        <li><a href="products.html">Shop</a></li>
         <li><a href="cart.html">Cart <span class="cart-count">0</span></a></li>
         <li id="auth-menu"><a href="login.html">Login</a></li>
         <li id="admin-menu" style="display: none;"><a href="admin.html">Admin</a></li>
         <li id="profile-menu" style="display: none;">
           <a href="profile.html">Profile</a>
-          <a href="#" onclick="logout()" style="margin-left: 1rem;">Logout</a>
+          <a href="#" onclick="logout()">Logout</a>
         </li>
       </ul>
     </div>
   </nav>
 
   <main>
-    <!-- Hero Carousel -->
-    <section class="hero-carousel">
-      <div class="hero-slide active" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-        <div class="hero-content">
-          <h1>Premium Electronics</h1>
-          <p>Discover cutting-edge technology at unbeatable prices</p>
-          <a href="products.html?category=Electronics" class="btn btn-light">Shop Now</a>
-        </div>
-        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=400&fit=crop" alt="Electronics" class="hero-image">
+    <section class="hero-section">
+      <div class="hero-bg">
+        <img src="https://images.unsplash.com/photo-1605369572399-05d8d64a0f6e?q=80&w=2000&auto=format&fit=crop" alt="Cyberpunk streetwear aesthetic">
       </div>
-
-      <div class="hero-slide" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-        <div class="hero-content">
-          <h1>Fashion & Apparel</h1>
-          <p>Elevate your style with our curated collection</p>
-          <a href="products.html?category=Clothing" class="btn btn-light">Explore</a>
-        </div>
-        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=400&fit=crop" alt="Fashion" class="hero-image">
-      </div>
-
-      <div class="hero-slide" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
-        <div class="hero-content">
-          <h1>Premium Footwear</h1>
-          <p>Step into comfort and style</p>
-          <a href="products.html?category=Footwear" class="btn btn-light">View Collection</a>
-        </div>
-        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=400&fit=crop" alt="Footwear" class="hero-image">
-      </div>
-
-      <div class="carousel-dots">
-        <button class="dot active" onclick="currentSlide(0)"></button>
-        <button class="dot" onclick="currentSlide(1)"></button>
-        <button class="dot" onclick="currentSlide(2)"></button>
-      </div>
-    </section>
-
-    <!-- Featured Products Section -->
-    <section class="featured-section">
       <div class="container">
-        <h2>Featured Products</h2>
-        <p class="section-subtitle">Handpicked items just for you</p>
-        <div class="featured-grid" id="featured-products">
-          <!-- Will be populated by JavaScript -->
+        <div class="hero-content">
+          <span class="hero-drop-tag">Drop 004 Is Live</span>
+          <h1>Wear<br>Your<br>Culture</h1>
+          <p>Unapologetic graphic tees for the youth. Anime, pop culture, and raw streetwear energy. Not for the faint of heart.</p>
         </div>
       </div>
     </section>
 
-    <!-- Category Cards Section -->
     <section class="categories-section">
       <div class="container">
-        <h2>Shop by Category</h2>
-        <div class="categories-grid">
-          <div class="category-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-            <div class="category-icon">📱</div>
-            <h3>Electronics</h3>
-            <p>Latest tech gadgets</p>
-            <a href="products.html?category=Electronics" class="btn btn-light btn-small">Browse</a>
-          </div>
-          <div class="category-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-            <div class="category-icon">👕</div>
-            <h3>Clothing</h3>
-            <p>Premium apparel</p>
-            <a href="products.html?category=Clothing" class="btn btn-light btn-small">Browse</a>
-          </div>
-          <div class="category-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
-            <div class="category-icon">👟</div>
-            <h3>Footwear</h3>
-            <p>Stylish shoes</p>
-            <a href="products.html?category=Footwear" class="btn btn-light btn-small">Browse</a>
-          </div>
+        <h2 class="section-title">Choose Your Fighter</h2>
+        <div class="fighter-grid">
+          
+          <a href="products.html?category=Anime" class="fighter-card main-fighter">
+            <img src="https://images.unsplash.com/photo-1618336753974-aae8e04506aa?q=80&w=800&auto=format&fit=crop" alt="Mecha Anime" class="fighter-bg">
+            <h3 class="fighter-title">Anime<br>Core</h3>
+          </a>
+
+          <a href="products.html?category=Graphic" class="fighter-card">
+            <img src="https://images.unsplash.com/photo-1543857778-c4a1a3e0b2eb?q=80&w=800&auto=format&fit=crop" alt="Y2K Graphic" class="fighter-bg">
+            <h3 class="fighter-title">Y2K<br>Graphic</h3>
+          </a>
+
+          <a href="products.html?category=Limited" class="fighter-card">
+            <img src="https://images.unsplash.com/photo-1611604548018-d56bbd85d681?q=80&w=800&auto=format&fit=crop" alt="Pop Culture" class="fighter-bg">
+            <h3 class="fighter-title">Pop<br>Culture</h3>
+          </a>
+
         </div>
       </div>
     </section>
 
-    <!-- Trust Section -->
-    <section class="trust-section">
+    <section class="drops-section">
       <div class="container">
-        <div class="trust-card">
-          <div class="trust-icon">🚚</div>
-          <h3>Free Shipping</h3>
-          <p>On orders over ₹4,000</p>
-        </div>
-        <div class="trust-card">
-          <div class="trust-icon">🔒</div>
-          <h3>Secure Payment</h3>
-          <p>100% secure checkout</p>
-        </div>
-        <div class="trust-card">
-          <div class="trust-icon">✅</div>
-          <h3>Quality Assured</h3>
-          <p>Premium products only</p>
-        </div>
-        <div class="trust-card">
-          <div class="trust-icon">🔄</div>
-          <h3>Easy Returns</h3>
-          <p>30-day return policy</p>
+        <h2 class="section-title">Latest Drops</h2>
+        <div class="featured-grid" id="featured-products"></div>
+      </div>
+    </section>
+
+    <section class="manifesto-section">
+      <div class="container">
+        <h2 class="manifesto-title">Not Another<br>F*cking Brand.</h2>
+        <div class="manifesto-grid">
+          <div>
+            ShopHub started in a cramped bedroom at 3 AM on a Discord call. We were tired of basic mall brands co-opting our culture and slapping a generic logo on a thin tee. We grew up on Toonami, spent our teens making memes, and live on the internet. Our clothes reflect that chaos.
+          </div>
+          <div>
+            Every design is printed on heavyweight, premium cotton. No fast fashion bullshit. We drop when we have something to say.<br><br>
+            IF YOU GET IT, YOU GET IT.
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Newsletter Section -->
-    <section class="newsletter-section">
-      <div class="container newsletter-content">
-        <h2>Stay Updated</h2>
-        <p>Get exclusive deals and early access to new products</p>
-        <form class="newsletter-form">
-          <input type="email" placeholder="Enter your email" required>
-          <button type="submit" class="btn btn-primary">Subscribe</button>
-        </form>
+    <section class="community-section">
+      <div class="container">
+        <h2 class="section-title" style="text-align: center;">Worn By The Culture</h2>
+        <div class="cult-grid">
+          <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=600&auto=format&fit=crop" alt="Community 1" class="cult-img">
+          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=600&auto=format&fit=crop" alt="Community 2" class="cult-img">
+          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=600&auto=format&fit=crop" alt="Community 3" class="cult-img">
+          <img src="https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=600&auto=format&fit=crop" alt="Community 4" class="cult-img">
+        </div>
       </div>
     </section>
   </main>

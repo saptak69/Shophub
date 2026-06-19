@@ -1,14 +1,15 @@
-// Carousel functionality
 let currentSlideIndex = 0;
 const slides = document.querySelectorAll('.hero-slide');
 const dots = document.querySelectorAll('.dot');
 
 function showSlide(index) {
-  slides.forEach(slide => slide.classList.remove('active'));
-  dots.forEach(dot => dot.classList.remove('active'));
-  
-  slides[index].classList.add('active');
-  dots[index].classList.add('active');
+  slides.forEach((slide, slideIndex) => {
+    slide.classList.toggle('active', slideIndex === index);
+  });
+
+  dots.forEach((dot, dotIndex) => {
+    dot.classList.toggle('active', dotIndex === index);
+  });
 }
 
 function currentSlide(index) {
@@ -21,10 +22,8 @@ function nextSlide() {
   showSlide(currentSlideIndex);
 }
 
-// Auto-rotate carousel every 5 seconds
-setInterval(nextSlide, 5000);
+setInterval(nextSlide, 5500);
 
-// Load featured products
 async function loadFeaturedProducts() {
   try {
     const response = await fetch(`${API_URL}/products`);
@@ -34,10 +33,7 @@ async function loadFeaturedProducts() {
 
     const payload = await response.json();
     const products = Array.isArray(payload) ? payload : [];
-    
-    // Get top 6 products
-    const featured = products.slice(0, 6);
-    displayFeaturedProducts(featured);
+    displayFeaturedProducts(products.slice(0, 6));
   } catch (error) {
     console.error('Error loading products:', error);
   }
@@ -46,18 +42,19 @@ async function loadFeaturedProducts() {
 function displayFeaturedProducts(products) {
   const container = document.getElementById('featured-products');
   container.innerHTML = '';
-  
-  products.forEach(product => {
-    const card = document.createElement('div');
+
+  products.forEach((product) => {
+    const card = document.createElement('article');
     card.className = 'product-card';
+    card.setAttribute('data-reveal', '');
     card.innerHTML = `
       <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='https://via.placeholder.com/240x200?text=${encodeURIComponent(product.name)}'">
       <div class="product-info">
         <div class="product-category">${product.category}</div>
         <h3 class="product-name">${product.name}</h3>
-        <div class="product-price">₹${product.price.toLocaleString('en-IN')}</div>
-        <button class="btn btn-primary btn-small" onclick="addToCartFromHome('${product.id || product._id}', '${product.name}', ${product.price})">
-          Add to Cart
+        <div class="product-price">Rs ${Number(product.price).toLocaleString('en-IN')}</div>
+        <button class="btn btn-primary btn-small" onclick="addToCartFromHome('${product.id || product._id}', '${product.name}', ${product.price}, '${product.image}')">
+          Add to cart
         </button>
       </div>
     `;
@@ -65,10 +62,10 @@ function displayFeaturedProducts(products) {
   });
 }
 
-function addToCartFromHome(productId, productName, price) {
-  let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-  
-  const existingItem = cart.find(item => item.productId === productId);
+function addToCartFromHome(productId, productName, price, image = '') {
+  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+  const existingItem = cart.find((item) => item.productId === productId);
+
   if (existingItem) {
     existingItem.quantity += 1;
   } else {
@@ -76,18 +73,14 @@ function addToCartFromHome(productId, productName, price) {
       productId,
       name: productName,
       price,
+      image,
       quantity: 1
     });
   }
-  
+
   localStorage.setItem('cart', JSON.stringify(cart));
   updateCartCount();
-  
-  // Show feedback
-  alert(`${productName} added to cart!`);
+  alert(`${productName} added to cart.`);
 }
 
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-  loadFeaturedProducts();
-});
+document.addEventListener('DOMContentLoaded', loadFeaturedProducts);

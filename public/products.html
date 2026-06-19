@@ -3,44 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Products | ShopHub</title>
+  <title>ALL DROPS | SHOPHUB</title>
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+  <div class="marquee-container">
+    <div class="marquee-content">
+      STAY RAW • NO CORPORATE BS • WEAR YOUR CULTURE • STAY RAW • NO CORPORATE BS • WEAR YOUR CULTURE • STAY RAW • NO CORPORATE BS • 
+    </div>
+  </div>
 
   <nav class="navbar">
     <div class="container">
-      <a href="index.html" class="nav-brand">ShopHub</a>
+      <a href="index.html" class="nav-brand">SHOPHUB</a>
       <ul class="nav-menu">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="products.html" class="active">Products</a></li>
+        <li><a href="index.html">Drops</a></li>
+        <li><a href="products.html" class="active">Shop</a></li>
         <li><a href="cart.html">Cart <span class="cart-count">0</span></a></li>
         <li id="auth-menu"><a href="login.html">Login</a></li>
         <li id="admin-menu" style="display: none;"><a href="admin.html">Admin</a></li>
         <li id="profile-menu" style="display: none;">
           <a href="profile.html">Profile</a>
-          <a href="#" onclick="logout()" style="margin-left: 1rem;">Logout</a>
+          <a href="#" onclick="logout()">Logout</a>
         </li>
       </ul>
     </div>
   </nav>
 
-  <main class="products-section">
-    <div class="container">
-      <h1>All Catalog Collections</h1>
-      
-      <div class="filters">
-        <select id="categoryFilter">
-          <option value="">Filter by Category</option>
-          <option value="Electronics">Electronics</option>
-          <option value="Clothing">Clothing</option>
-          <option value="Footwear">Footwear</option>
-        </select>
-      </div>
+  <main>
+    <section style="padding: 4rem 0 2rem; border-bottom: 1px solid var(--border-color);">
+      <div class="container">
+        <h1 class="section-title" style="margin-bottom: 1rem;">ALL DROPS</h1>
+        <p style="max-width: 600px; color: var(--text-muted); margin-bottom: 2rem;">Every piece we've dropped. Filter the noise and find your fit.</p>
 
-      <div class="products-grid" id="productsGrid">
+        <div style="display: flex; gap: 1rem; margin-bottom: 3rem;">
+          <select id="categoryFilter" style="background: var(--bg-surface); color: var(--text-main); border: 2px solid var(--border-color); padding: 0.8rem 1.2rem; font-family: var(--font-mono); text-transform: uppercase; font-weight: 700; outline: none; cursor: pointer;">
+            <option value="">ALL DROPS</option>
+            <option value="Anime">ANIME</option>
+            <option value="Graphic">GRAPHIC</option>
+            <option value="Limited">LIMITED</option>
+            <option value="Clothing">CLOTHING</option>
+            <option value="Footwear">FOOTWEAR</option>
+            <option value="Electronics">ACCESSORIES</option>
+          </select>
         </div>
-    </div>
+
+        <div class="featured-grid" id="productsGrid"></div>
+      </div>
+    </section>
   </main>
 
   <script src="js/auth.js"></script>

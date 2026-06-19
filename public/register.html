@@ -4,13 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create Account | ShopHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-
   <nav class="navbar">
     <div class="container">
-      <a href="index.html" class="nav-brand">ShopHub</a>
+      <a href="index.html" class="nav-brand">
+        <img src="assets/logo-mark.svg" alt="ShopHub logo" class="brand-mark">
+        <span class="brand-text">
+          <span class="brand-name">ShopHub</span>
+          <span class="brand-tag">Curated Commerce</span>
+        </span>
+      </a>
       <ul class="nav-menu">
         <li><a href="index.html">Home</a></li>
         <li><a href="products.html">Products</a></li>
@@ -19,31 +27,61 @@
         <li id="admin-menu" style="display: none;"><a href="admin.html">Admin</a></li>
         <li id="profile-menu" style="display: none;">
           <a href="profile.html">Profile</a>
-          <a href="#" onclick="logout()" style="margin-left: 1rem;">Logout</a>
+          <a href="#" onclick="logout()">Logout</a>
         </li>
       </ul>
     </div>
   </nav>
 
-  <main>
-    <section class="auth-section">
-      <div class="auth-container">
-        <div class="auth-box">
-          <h1>Create Account</h1>
-          <form id="registerForm">
-            <input type="text" id="name" placeholder="Full Name" required>
-            <input type="email" id="email" placeholder="Email address" required>
-            <input type="password" id="password" placeholder="Password" required>
-            <button type="submit" class="btn btn-primary" style="width: 100%;">Register</button>
-          </form>
-          <p>Already have an account? <a href="login.html">Sign in</a></p>
-          <div id="registerError" class="error-message" style="display: none;"></div>
+  <main class="page-shell">
+    <div class="container">
+      <section class="auth-layout" data-reveal>
+        <div class="auth-grid">
+          <div class="auth-hero">
+            <span class="eyebrow"><span class="eyebrow-dot"></span>Create an account</span>
+            <h1>Join a storefront that feels cleaner from discovery to delivery.</h1>
+            <p>Register once to save your profile, place orders faster, and keep your purchase history organized.</p>
+            <div class="feature-stack">
+              <div class="feature-pill">
+                <span class="trust-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 5V19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M5 12H19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.8"/></svg>
+                </span>
+                <div>
+                  <h3>Fast onboarding</h3>
+                  <p>Create your account and move straight into browsing or checkout.</p>
+                </div>
+              </div>
+              <div class="feature-pill">
+                <span class="trust-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3.8L18.2 6.2V11.8C18.2 15.88 15.58 19.57 12 20.7C8.42 19.57 5.8 15.88 5.8 11.8V6.2L12 3.8Z" stroke="currentColor" stroke-width="1.8"/><path d="M9.4 11.9L11.1 13.6L14.9 9.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <div>
+                  <h3>Protected profile</h3>
+                  <p>Your account is set up for secure access and smoother repeat purchases.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="auth-box">
+            <div class="profile-badge">Register</div>
+            <h1>Create your profile</h1>
+            <form id="registerForm">
+              <input type="text" id="name" placeholder="Full name" required>
+              <input type="email" id="email" placeholder="Email address" required>
+              <input type="password" id="password" placeholder="Password" required>
+              <button type="submit" class="btn btn-primary" style="width:100%;">Create account</button>
+            </form>
+            <p>Already have an account? <a href="login.html">Sign in</a></p>
+            <div id="registerError" class="error-message" style="display:none;"></div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </main>
 
   <script src="js/auth.js"></script>
+  <script src="js/ui.js"></script>
   <script src="js/register.js"></script>
 </body>
 </html>

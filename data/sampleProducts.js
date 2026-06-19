@@ -1,24 +1,79 @@
 module.exports = [
-  { name: 'MacBook Pro 14"', description: 'Powerful laptop for professionals', price: 1999000, stock: 15, category: 'Electronics', image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=300&h=300&fit=crop' },
-  { name: 'iPhone 15 Pro', description: 'Latest flagship smartphone with A17 chip', price: 129900, stock: 30, category: 'Electronics', image: 'https://images.unsplash.com/photo-1592286927505-1def25115558?w=300&h=300&fit=crop' },
-  { name: 'AirPods Pro', description: 'Premium wireless earbuds with active noise cancellation', price: 24900, stock: 50, category: 'Electronics', image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=300&h=300&fit=crop' },
-  { name: 'iPad Air', description: '11-inch tablet with M1 chip', price: 79900, stock: 20, category: 'Electronics', image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=300&h=300&fit=crop' },
-  { name: 'Samsung 4K Monitor', description: '32-inch 4K display monitor', price: 59900, stock: 10, category: 'Electronics', image: 'https://images.unsplash.com/photo-1587829191301-26ae2ff8e14f?w=300&h=300&fit=crop' },
-  { name: 'Sony WH-1000XM5', description: 'Premium noise-cancelling headphones', price: 39900, stock: 25, category: 'Electronics', image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop' },
-  { name: 'Gaming PC RTX 4070', description: 'High-performance gaming desktop', price: 229900, stock: 8, category: 'Electronics', image: 'https://images.unsplash.com/photo-1587829191301-26ae2ff8e14f?w=300&h=300&fit=crop' },
-  { name: 'Canon EOS R6', description: 'Professional mirrorless camera', price: 249900, stock: 5, category: 'Electronics', image: 'https://images.unsplash.com/photo-1606986628025-35d57e735ae0?w=300&h=300&fit=crop' },
-  { name: 'Premium Cotton T-Shirt', description: '100% organic cotton, comfortable fit', price: 1299, stock: 100, category: 'Clothing', image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=300&h=300&fit=crop' },
-  { name: 'Designer Jeans', description: 'Premium denim with perfect fit', price: 3499, stock: 60, category: 'Clothing', image: 'https://images.unsplash.com/photo-1542272604-787c62e4beeb?w=300&h=300&fit=crop' },
-  { name: 'Winter Jacket', description: 'Warm and stylish winter coat', price: 7999, stock: 40, category: 'Clothing', image: 'https://images.unsplash.com/photo-1551028719-00167b16ebc5?w=300&h=300&fit=crop' },
-  { name: 'Elegant Dress', description: 'Perfect for any occasion', price: 5999, stock: 35, category: 'Clothing', image: 'https://images.unsplash.com/photo-1595777712802-0de286fade1d?w=300&h=300&fit=crop' },
-  { name: 'Casual Polo Shirt', description: 'Comfortable everyday wear', price: 1999, stock: 80, category: 'Clothing', image: 'https://images.unsplash.com/photo-1577307180446-a12d700bd7b7?w=300&h=300&fit=crop' },
-  { name: 'Wool Sweater', description: 'Cozy wool blend sweater', price: 3999, stock: 45, category: 'Clothing', image: 'https://images.unsplash.com/photo-1578919039148-1b1d6d6c9e2f?w=300&h=300&fit=crop' },
-  { name: 'Sports Leggings', description: 'High-waist athletic leggings', price: 2499, stock: 70, category: 'Clothing', image: 'https://images.unsplash.com/photo-1599082868235-41ae52255fa1?w=300&h=300&fit=crop' },
-  { name: 'Premium Running Shoes', description: 'Professional grade running footwear', price: 8999, stock: 50, category: 'Footwear', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&h=300&fit=crop' },
-  { name: 'Leather Sneakers', description: 'Casual and stylish sneakers', price: 4999, stock: 55, category: 'Footwear', image: 'https://images.unsplash.com/photo-1549298881-cdbe2c607bee?w=300&h=300&fit=crop' },
-  { name: 'Formal Dress Shoes', description: 'Elegant shoes for formal events', price: 6999, stock: 30, category: 'Footwear', image: 'https://images.unsplash.com/photo-1487992214488-7f8a5ce14b23?w=300&h=300&fit=crop' },
-  { name: 'Comfortable Loafers', description: 'Perfect for everyday casual wear', price: 3999, stock: 40, category: 'Footwear', image: 'https://images.unsplash.com/photo-1533563905206-e1e9ad35b889?w=300&h=300&fit=crop' },
-  { name: 'Waterproof Boots', description: 'All-weather protection boots', price: 7499, stock: 25, category: 'Footwear', image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=300&h=300&fit=crop' },
-  { name: 'Summer Sandals', description: 'Light and comfortable sandals', price: 1499, stock: 90, category: 'Footwear', image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300&h=300&fit=crop' },
-  { name: 'Basketball Shoes', description: 'High-performance court shoes', price: 9999, stock: 35, category: 'Footwear', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&h=300&fit=crop' }
+  // --- ANIME CORE ---
+  {
+    name: "CYBER-TOKYO HEAVY TEE",
+    description: "240 GSM heavyweight cotton. Drop shoulder fit. Features a high-density back print inspired by neo-metropolis dystopias.",
+    price: 1299,
+    stock: 50,
+    category: "Anime",
+    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=600&auto=format&fit=crop"
+  },
+  {
+    name: "ARACHNID OVERSIZED WEAVE",
+    description: "Boxy fit. Subtle web-like distressing across the hem and sleeves. Heavyweight 100% cotton for that perfect, slouched drape.",
+    price: 1499,
+    stock: 35,
+    category: "Anime",
+    image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=600&auto=format&fit=crop"
+  },
+  {
+    name: "MECHA-01 DROP HOODIE",
+    description: "Pitch black, acid-washed french terry. Distorted mecha unit graphic on the chest. Fits massive. Order true size.",
+    price: 2499,
+    stock: 25,
+    category: "Anime",
+    image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=600&auto=format&fit=crop"
+  },
+
+  // --- Y2K & GRAPHIC ---
+  {
+    name: "Y2K GLITCH-ART ZIP-UP",
+    description: "Faded vintage black full-zip. Features brutalist typography down the sleeves and a heavy dual-zipper.",
+    price: 2199,
+    stock: 30,
+    category: "Graphic",
+    image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=600&auto=format&fit=crop"
+  },
+  {
+    name: "DISTORTED REALITY KNIT",
+    description: "Chunky, distressed mohair blend sweater. Woven static graphic. Dropped shoulders, cropped body.",
+    price: 2999,
+    stock: 15,
+    category: "Graphic",
+    image: "https://images.unsplash.com/photo-1578919039148-1b1d6d6c9e2f?q=80&w=600&auto=format&fit=crop"
+  },
+  {
+    name: "WEAPON-X COMPRESSION SHIRT",
+    description: "Skin-tight tactical base layer. Built with moisture-wicking tech fibers and aggressive contrast stitching. Wear it raw or layered.",
+    price: 899,
+    stock: 60,
+    category: "Graphic",
+    image: "https://images.unsplash.com/photo-1617391761001-35b80a2b85e0?q=80&w=600&auto=format&fit=crop"
+  },
+
+  // --- LIMITED & TACTICAL ---
+  {
+    name: "OLD-MONEY SUBVERTED POLO",
+    description: "A classic silhouette utterly destroyed. Frayed collars, distressed hems, and an oversized, slouched fit. Heavy pique cotton.",
+    price: 1899,
+    stock: 40,
+    category: "Limited",
+    image: "https://images.unsplash.com/photo-1586363104862-3a5e222ee513?q=80&w=600&auto=format&fit=crop"
+  },
+  {
+    name: "MIDNIGHT TACTICAL CARGOS",
+    description: "Parachute-style nylon cargos with articulated knees. Six functional pockets. Baggy fit, highly water-resistant.",
+    price: 2799,
+    stock: 20,
+    category: "Limited",
+    image: "https://images.unsplash.com/photo-1622519407650-3df9883f76a5?q=80&w=600&auto=format&fit=crop"
+  },
+  {
+    name: "TITANIUM MESH RUNNERS",
+    description: "Chunky, aggressive silhouette on a stacked EVA sole. Breathable titanium mesh upper with metallic overlays.",
+    price: 4499,
+    stock: 12,
+    category: "Limited",
+    image: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?q=80&w=600&auto=format&fit=crop"
+  }
 ];

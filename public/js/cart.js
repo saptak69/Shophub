@@ -10,13 +10,13 @@ function displayCart() {
 
   if (cart.length === 0) {
     cartItemsDiv.innerHTML = `
-      <div class="empty-state">
-        <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">Your bag is currently empty.</p>
-        <a href="products.html" class="btn btn-primary">Browse Collection</a>
+      <div style="border: 1px dashed var(--border-color); padding: 4rem 2rem; text-align: center;">
+        <p style="font-weight: 700; font-size: 1.2rem; margin-bottom: 1.5rem; color: var(--text-muted);">YOUR BAG IS EMPTY.</p>
+        <a href="products.html" class="btn" style="border: 1px solid #fff; color: #fff;">BROWSE CATALOG</a>
       </div>
     `;
-    document.getElementById('subtotal').textContent = '₹0';
-    document.getElementById('total').textContent = '₹0';
+    document.getElementById('subtotal').textContent = 'Rs 0';
+    document.getElementById('total').textContent = 'Rs 0';
     return;
   }
 
@@ -24,42 +24,50 @@ function displayCart() {
   cartItemsDiv.innerHTML = cart.map((item, index) => {
     const itemTotal = item.price * item.quantity;
     subtotal += itemTotal;
+
     return `
-      <div class="cart-item">
-        <img src="${item.image}" alt="${item.name}" style="width: 90px; height: 90px; object-fit: cover; border-radius: 6px; background: var(--bg-main);">
-        <div class="cart-item-info" style="margin-left: 1.5rem;">
-          <div class="cart-item-name">${item.name}</div>
-          <div class="cart-item-price">₹${Number(item.price).toLocaleString('en-IN')}</div>
-        </div>
-        <div class="cart-item-quantity">
-          <button class="btn btn-secondary btn-small" style="padding: 0.25rem 0.6rem; border-color: var(--border-color);" onclick="updateQuantity(${index}, -1)">-</button>
-          <input type="number" value="${item.quantity}" readonly style="width: 45px; text-align: center; border: none; background: transparent; font-weight: 500;">
-          <button class="btn btn-secondary btn-small" style="padding: 0.25rem 0.6rem; border-color: var(--border-color);" onclick="updateQuantity(${index}, 1)">+</button>
-        </div>
-        <div style="text-align: right; min-width: 100px;">
-          <div style="color: var(--text-main); font-weight: 700; margin-bottom: 0.5rem;">₹${Number(itemTotal).toLocaleString('en-IN')}</div>
-          <button class="btn btn-secondary btn-small" style="color: var(--error); border-color: var(--border-color); font-size: 0.8rem;" onclick="removeFromCart(${index})">Remove</button>
+      <div style="display: flex; gap: 1.5rem; background: var(--bg-surface); border: 1px solid var(--border-color); padding: 1.5rem; margin-bottom: 1rem; transition: border 0.2s;">
+        <img src="${item.image}" alt="${item.name}" style="width: 120px; height: 120px; object-fit: cover; border: 1px solid var(--border-color); filter: contrast(1.1);">
+        
+        <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+              <div style="font-family: var(--font-display); font-size: 1.8rem; text-transform: uppercase; line-height: 1; margin-bottom: 0.5rem;">${item.name}</div>
+              <div style="color: var(--accent); font-weight: bold; font-size: 1.2rem;">Rs ${Number(item.price).toLocaleString('en-IN')}</div>
+            </div>
+            <div style="font-weight: bold; font-size: 1.2rem;">
+              Rs ${Number(itemTotal).toLocaleString('en-IN')}
+            </div>
+          </div>
+          
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 1rem;">
+            <div style="display: flex; align-items: center; border: 1px solid var(--border-color); background: #000;">
+              <button style="background: none; border: none; color: #fff; padding: 0.5rem 1rem; cursor: pointer; font-weight: bold;" onclick="updateQuantity(${index}, -1)">-</button>
+              <input type="number" value="${item.quantity}" readonly style="width: 50px; text-align: center; background: none; border: none; color: #fff; border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); padding: 0.5rem; font-family: var(--font-mono); font-weight: bold;">
+              <button style="background: none; border: none; color: #fff; padding: 0.5rem 1rem; cursor: pointer; font-weight: bold;" onclick="updateQuantity(${index}, 1)">+</button>
+            </div>
+            <button style="background: none; border: none; color: #ff3333; text-transform: uppercase; font-size: 0.9rem; font-weight: bold; cursor: pointer; letter-spacing: 1px;" onclick="removeFromCart(${index})">[ REMOVE ]</button>
+          </div>
         </div>
       </div>
     `;
   }).join('');
 
-  const formattedTotal = `₹${Number(subtotal).toLocaleString('en-IN')}`;
+  const formattedTotal = `Rs ${Number(subtotal).toLocaleString('en-IN')}`;
   document.getElementById('subtotal').textContent = formattedTotal;
   document.getElementById('total').textContent = formattedTotal;
 }
 
 function updateQuantity(index, change) {
-  if (cart[index]) {
-    cart[index].quantity += change;
-    if (cart[index].quantity <= 0) {
-      removeFromCart(index);
-    } else {
-      localStorage.setItem('cart', JSON.stringify(cart));
-      updateCartCount();
-      loadCart();
-    }
+  if (!cart[index]) return;
+  cart[index].quantity += change;
+  if (cart[index].quantity <= 0) {
+    removeFromCart(index);
+    return;
   }
+  localStorage.setItem('cart', JSON.stringify(cart));
+  updateCartCount();
+  loadCart();
 }
 
 function removeFromCart(index) {

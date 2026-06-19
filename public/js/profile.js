@@ -35,28 +35,29 @@ function displayUserOrders(orders) {
     return;
   }
 
-  tbody.innerHTML = orders.map(order => `
-    <tr>
-      <td style="font-family: monospace; color: #999;">${order.id.substring(0, 8)}...</td>
-      <td>₹${Number(order.totalPrice).toLocaleString('en-IN')}</td>
-      <td>
-        <span style="background: ${getStatusColor(order.status).bg}; color: ${getStatusColor(order.status).text}; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.85rem; font-weight: 500; text-transform: capitalize;">
-          ${order.status}
-        </span>
-      </td>
-      <td>${new Date(order.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</td>
-    </tr>
-  `).join('');
+  tbody.innerHTML = orders.map((order) => {
+    const statusStyles = getStatusColor(order.status);
+
+    return `
+      <tr>
+        <td style="font-family:monospace;color:var(--text-soft);">${(order.id || order._id).substring(0, 8)}...</td>
+        <td>Rs ${Number(order.totalPrice).toLocaleString('en-IN')}</td>
+        <td><span class="status-badge" style="background:${statusStyles.bg};color:${statusStyles.text};">${order.status}</span></td>
+        <td>${new Date(order.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</td>
+      </tr>
+    `;
+  }).join('');
 }
 
 function getStatusColor(status) {
   const styles = {
-    pending: { bg: '#fef3c7', text: '#d97706' },
-    confirmed: { bg: '#e0e7ff', text: '#4338ca' },
-    shipped: { bg: '#f3e8ff', text: '#7e22ce' },
-    delivered: { bg: '#dcfce3', text: '#15803d' }
+    pending: { bg: '#fef3c7', text: '#b45309' },
+    confirmed: { bg: '#dbeafe', text: '#1d4ed8' },
+    shipped: { bg: '#e0f2fe', text: '#0369a1' },
+    delivered: { bg: '#dcfce7', text: '#15803d' }
   };
-  return styles[status] || { bg: '#f1f5f9', text: '#64748b' };
+
+  return styles[status] || { bg: '#e2e8f0', text: '#475569' };
 }
 
 document.addEventListener('DOMContentLoaded', loadProfile);
