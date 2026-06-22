@@ -7,7 +7,6 @@ const userSchema = new mongoose.Schema({
   role: { type: String, default: 'customer', enum: ['customer', 'admin'] }
 }, { timestamps: true });
 
-userSchema.index({ email: 1 }, { unique: true });
 
 userSchema.set('toJSON', {
   transform: (_, ret) => {
