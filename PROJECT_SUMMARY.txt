@@ -1,5 +1,5 @@
-SHOPHUB: Platform Overview & Architecture
-ShopHub is a high-contrast, brutalist e-commerce platform built specifically for underground streetwear, graphic apparel, and subverted fashion. Moving away from traditional, soft corporate layouts, the platform embraces a raw, terminal-inspired aesthetic utilizing massive typography and toxic neon accents.
+MANGROVE: Platform Overview & Architecture
+Mangrove is a high-contrast, brutalist e-commerce platform built specifically for underground streetwear, graphic apparel, and subverted fashion. Moving away from traditional, soft corporate layouts, the platform embraces a raw, terminal-inspired aesthetic utilizing massive typography and toxic neon accents.
 
 Core Architecture & Tech Stack
 The application runs on a full-stack JavaScript architecture designed for speed, security, and raw visual impact.
@@ -41,4 +41,4 @@ Terminal Profiles: The account view serves as a secure operative terminal, clean
 
 Admin Control Center: Administrators have access to an elevated operations surface where they can publish new apparel drops and track or update active transaction statuses without friction.
 
-ShopHub stands as a fully weaponized, production-ready e-commerce experience, perfectly blending underground brutalist design with robust backend operations.
+Mangrove stands as a fully weaponized, production-ready e-commerce experience, perfectly blending underground brutalist design with robust backend operations.

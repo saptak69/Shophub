@@ -168,7 +168,7 @@ const Home = () => {
           <h2 className="manifesto-title">Not Another<br />F*cking Brand.</h2>
           <div className="manifesto-grid">
             <div>
-              ShopHub started in a cramped bedroom at 3 AM on a Discord call. We were tired of basic mall brands co-opting our culture and slapping a generic logo on a thin tee. We grew up on Toonami, spent our teens making memes, and live on the internet. Our clothes reflect that chaos.
+              Mangrove started in a cramped bedroom at 3 AM on a Discord call. We were tired of basic mall brands co-opting our culture and slapping a generic logo on a thin tee. We grew up on Toonami, spent our teens making memes, and live on the internet. Our clothes reflect that chaos.
             </div>
             <div>
               Every design is printed on heavyweight, premium cotton. No fast fashion bullshit. We drop when we have something to say.<br /><br />

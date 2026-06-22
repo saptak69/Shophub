@@ -30,8 +30,8 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="container">
         <Link to="/" className="nav-brand" onClick={() => setIsOpen(false)}>
-          <img src="/assets/logo-mark.svg" alt="ShopHub S sigil" style={{ width: '24px', marginRight: '8px', verticalAlign: 'middle' }} />
-          <span className="brand-wordmark">SHOPHUB</span>
+          <img src="/assets/logo-mark.svg" alt="Mangrove M sigil" style={{ width: '24px', marginRight: '8px', verticalAlign: 'middle' }} />
+          <span className="brand-wordmark">MANGROVE</span>
         </Link>
         <button 
           className="nav-toggle" 

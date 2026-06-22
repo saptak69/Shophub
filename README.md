@@ -1,4 +1,4 @@
-# ShopHub - E-Commerce Website
+# Mangrove - E-Commerce Website
 
 A fully functional e-commerce website built with **Node.js**, **Express**, **MongoDB**, and vanilla **JavaScript**.
 

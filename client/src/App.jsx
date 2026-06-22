@@ -43,7 +43,7 @@ function App() {
             <footer className="footer" style={{ borderTop: '1px solid var(--border-color)', padding: '3rem 2rem', marginTop: '5rem', backgroundColor: 'var(--bg-surface)' }}>
               <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem' }}>
                 <div>
-                  <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '1rem', letterSpacing: '-0.02em' }}>SHOPHUB</h3>
+                  <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '1rem', letterSpacing: '-0.02em' }}>MANGROVE</h3>
                   <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
                     Unapologetic graphic tees, heavy knits, and tech wear. Intentionally raw.
                   </p>
